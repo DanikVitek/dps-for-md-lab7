@@ -1,7 +1,7 @@
 {
     "name": "danikvitek/ppsmd_lab7",
     "type": "project",
-    "description": "Blog webapp.",
+    "description": "Todo webapp.",
     "keywords": ["blog"],
     "license": "MIT",
     "require": {
@@ -16,7 +16,7 @@
         "laravel/sail": "^1.39",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.5",
-        "phpunit/phpunit": "^11.4"
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
