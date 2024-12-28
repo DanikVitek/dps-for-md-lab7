@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Enum\TodoStatus;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class TodoController extends Controller
@@ -15,7 +16,8 @@ class TodoController extends Controller
      */
     public function index(): View
     {
-        $todos = Todo::latest()->get();
+        $user = Auth::user();
+        $todos = $user->getAllTodos();
         return view('todos.index', compact('todos'));
     }
 
@@ -40,6 +42,7 @@ class TodoController extends Controller
         ]);
 
         Todo::create([
+            Todo::USER_ID => Auth::id(),
             Todo::TITLE => $validated['title'],
             Todo::DESCRIPTION => $validated['description'] ?? null,
             Todo::STATUS => TodoStatus::tryFrom($validated[Todo::STATUS]) ?? TodoStatus::Pending,

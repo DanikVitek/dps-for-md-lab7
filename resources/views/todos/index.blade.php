@@ -1,8 +1,8 @@
-@extends('layouts.app')
+<?php
+$title = 'Todos';
+?>
 
-@section('title', 'Todos')
-
-@section('content')
+<x-app-layout>
     <h1>Todos</h1>
 
     @if(session('success'))
@@ -28,7 +28,7 @@
                 <td>{{ $todo->getTitle() }}</td>
                 <td>{{ $todo->getDescription() }}</td>
                 <td>
-                    {{ $todo->getStatus()->label() }}
+                    {{ $todo->getStatus()->$value }}
                 </td>
                 <td>
                     <a href="{{ route('todos.edit', $todo) }}" class="btn btn-sm btn-warning">Редагувати</a>
@@ -44,4 +44,4 @@
         @endforeach
         </tbody>
     </table>
-@endsection
+</x-app-layout>

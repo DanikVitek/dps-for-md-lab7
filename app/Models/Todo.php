@@ -13,13 +13,15 @@ class Todo extends Model
 {
     use HasFactory, BuildsQueries;
 
+    public const string USER_ID = 'user_id';
     public const string TITLE = 'title';
     public const string DESCRIPTION = 'description';
     public const string STATUS = 'status';
 
-    protected $fillable = [self::TITLE, self::DESCRIPTION, self::STATUS];
+    protected $fillable = [self::USER_ID, self::TITLE, self::DESCRIPTION, self::STATUS];
 
     protected $casts = [
+        self::USER_ID => 'int',
         self::TITLE => 'string',
         self::DESCRIPTION => 'string|null',
         self::STATUS => TodoStatus::class,
@@ -40,8 +42,13 @@ class Todo extends Model
         return $this->{self::DESCRIPTION};
     }
 
-    public function isCompleted(): bool
+    public function getStatus(): TodoStatus
     {
         return $this->{self::STATUS};
+    }
+
+    public function getUser(): User
+    {
+        return $this->belongsTo(User::class)->limit(1)->first();
     }
 }

@@ -1,9 +1,15 @@
 <?php
 
-use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
-const SEE_OTHER = 303;
+Route::view('/', 'welcome');
 
-Route::redirect('/', 'todos', status: SEE_OTHER);
-Route::resource('todos', TodoController::class);
+Route::view('dashboard', 'dashboard')
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::view('profile', 'profile')
+    ->middleware(['auth'])
+    ->name('profile');
+
+require __DIR__.'/auth.php';
