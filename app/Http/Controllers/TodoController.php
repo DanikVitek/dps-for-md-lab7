@@ -11,17 +11,6 @@ use Illuminate\View\View;
 class TodoController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return View
-     */
-    public function index(): View
-    {
-        $user = Auth::user();
-        $todos = $user->getAllTodos();
-        return view('todos.index', compact('todos'));
-    }
-
-    /**
      * @return View
      */
     public function create(): View

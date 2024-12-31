@@ -13,6 +13,7 @@ class Todo extends Model
 {
     use HasFactory, BuildsQueries;
 
+    public const string ID = 'id';
     public const string USER_ID = 'user_id';
     public const string TITLE = 'title';
     public const string DESCRIPTION = 'description';
@@ -21,15 +22,21 @@ class Todo extends Model
     protected $fillable = [self::USER_ID, self::TITLE, self::DESCRIPTION, self::STATUS];
 
     protected $casts = [
+        self::ID => 'int',
         self::USER_ID => 'int',
         self::TITLE => 'string',
-        self::DESCRIPTION => 'string|null',
+        self::DESCRIPTION => 'string',
         self::STATUS => TodoStatus::class,
     ];
 
     public function scopeByStatus(Builder $query, TodoStatus $status): Builder
     {
         return $query->where(self::STATUS, $status->asString());
+    }
+
+    public function getId(): int
+    {
+        return $this->{self::ID};
     }
 
     public function getTitle(): string
